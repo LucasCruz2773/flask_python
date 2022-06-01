@@ -13,7 +13,7 @@
    <form class="form-inline" action="/update/{{task.id}}" method="POST">
       <div class="form-group">
          <label for="description">Task</label>
-         <input type="text" class="form-control" name="description" id="description" value="{{task.description}}">
+         <input type="text" class="form-control" name="description" id="description" value="{{task.description}}" placeholder="Descrição">
          <select name="situation" id="situation" class="form-control" >
             {% if task.situation == 'A Fazer' %}
             <option value="A Fazer" selected>A Fazer</option>
@@ -31,6 +31,7 @@
             <option value="Feito">Feito</option>
             {% endif %}
          </select>
+         <input type="number" class="form-control" name="spend_hours" id="spend_hours" value="{{task.spend_hours}}" placeholder="Horas Gastas">
          <button type="submit" class="btn btn-primary">Update</button>
          <a class="btn btn-danger" href="/">Cancel</a>
       </div>
