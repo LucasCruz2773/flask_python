@@ -37,12 +37,15 @@ class Task(db.Model):
     spend_hours = db.Column(db.Integer, nullable=False)
     """:type : str"""
 
+    category = db.Column(db.String(200), nullable=False)
+    """:type : str"""
+
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     """:type : datetime"""
  
     def __repr__(self):
         """override __repr__ method"""
-        return f"Task: #{self.id}, content: {self.description, self.situation, self.spend_hours}"
+        return f"Task: #{self.id}, content: {self.description, self.situation, self.spend_hours, self.category}"
 
 # routes and handlers.
 
@@ -51,7 +54,7 @@ class Task(db.Model):
 def index():
     """root route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'], situation=request.form['situation'], spend_hours=request.form['spend_hours'])
+        task = Task(description=request.form['description'], situation=request.form['situation'], spend_hours=request.form['spend_hours'], category=request.form['category'])
         try:
             db.session.add(task)
             db.session.commit()
@@ -60,7 +63,20 @@ def index():
             return "Houve um erro, ao inserir a tarefa"
     else:
         tasks = Task.query.order_by(Task.date_created).all()
-        return render_template('index.html', tasks=tasks)
+        categories = []
+        for task in tasks:
+            addCategory = True
+            for category in categories:
+                print(category)
+                if(category['name'] == task.category):
+                    category['hours'] += task.spend_hours
+                    addCategory = False
+            if(addCategory):
+                categories.append({
+                    'name': task.category,
+                    'hours': task.spend_hours
+                })
+        return render_template('index.html', tasks=tasks, categories=categories)
 
 
 @app.route('/delete/<int:id>')
@@ -83,6 +99,7 @@ def update(id):
         task.description = request.form['description']
         task.situation = request.form['situation']
         task.spend_hours = request.form['spend_hours']
+        task.category = request.form['category']
         try:
             db.session.commit()
             return redirect('/')

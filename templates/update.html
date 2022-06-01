@@ -15,23 +15,54 @@
          <label for="description">Task</label>
          <input type="text" class="form-control" name="description" id="description" value="{{task.description}}" placeholder="Descrição">
          <select name="situation" id="situation" class="form-control" >
+
             {% if task.situation == 'A Fazer' %}
             <option value="A Fazer" selected>A Fazer</option>
             {% else %}
             <option value="A Fazer">A Fazer</option>
             {% endif %}
+
             {% if task.situation == 'Fazendo' %}
             <option value="Fazendo" selected>Fazendo</option>
             {% else %}
             <option value="Fazendo">Fazendo</option>
             {% endif %}
+
             {% if task.situation == 'Feito' %}
             <option value="Feito" selected>Feito</option>
             {% else %}
             <option value="Feito">Feito</option>
             {% endif %}
+
          </select>
          <input type="number" class="form-control" name="spend_hours" id="spend_hours" value="{{task.spend_hours}}" placeholder="Horas Gastas">
+         <select name="category" id="category" class="form-control" >
+
+            {% if task.category == 'Feat' %}
+            <option value="Feat" selected>Feat</option>
+            {% else %}
+            <option value="Feat">Feat</option>
+            {% endif %}
+
+            {% if task.category == 'Bugfix' %}
+            <option value="Bugfix" selected>Bugfix</option>
+            {% else %}
+            <option value="Bugfix">Bugfix</option>
+            {% endif %}
+
+            {% if task.category == 'Change' %}
+            <option value="Change" selected>Change</option>
+            {% else %}
+            <option value="Change">Change</option>
+            {% endif %}
+
+            {% if task.category == 'Documentation' %}
+            <option value="Documentation" selected>Documentation</option>
+            {% else %}
+            <option value="Documentation">Documentation</option>
+            {% endif %}
+
+         </select>
          <button type="submit" class="btn btn-primary">Update</button>
          <a class="btn btn-danger" href="/">Cancel</a>
       </div>
