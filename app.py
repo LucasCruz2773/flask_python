@@ -31,12 +31,15 @@ class Task(db.Model):
     description = db.Column(db.String(200), nullable=False)
     """:type : str"""
 
+    situation = db.Column(db.String(200), nullable=False)
+    """:type : str"""
+
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     """:type : datetime"""
  
     def __repr__(self):
         """override __repr__ method"""
-        return f"Task: #{self.id}, content: {self.description}"
+        return f"Task: #{self.id}, content: {self.description, self.situation}"
 
 # routes and handlers.
 
@@ -45,7 +48,7 @@ class Task(db.Model):
 def index():
     """root route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'])
+        task = Task(description=request.form['description'], situation=request.form['situation'])
         try:
             db.session.add(task)
             db.session.commit()
@@ -75,6 +78,7 @@ def update(id):
     task = Task.query.get_or_404(id)
     if request.method == 'POST':
         task.description = request.form['description']
+        task.situation = request.form['situation']
         try:
             db.session.commit()
             return redirect('/')

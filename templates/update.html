@@ -14,6 +14,23 @@
       <div class="form-group">
          <label for="description">Task</label>
          <input type="text" class="form-control" name="description" id="description" value="{{task.description}}">
+         <select name="situation" id="situation" class="form-control" >
+            {% if task.situation == 'A Fazer' %}
+            <option value="A Fazer" selected>A Fazer</option>
+            {% else %}
+            <option value="A Fazer">A Fazer</option>
+            {% endif %}
+            {% if task.situation == 'Fazendo' %}
+            <option value="Fazendo" selected>Fazendo</option>
+            {% else %}
+            <option value="Fazendo">Fazendo</option>
+            {% endif %}
+            {% if task.situation == 'Feito' %}
+            <option value="Feito" selected>Feito</option>
+            {% else %}
+            <option value="Feito">Feito</option>
+            {% endif %}
+         </select>
          <button type="submit" class="btn btn-primary">Update</button>
          <a class="btn btn-danger" href="/">Cancel</a>
       </div>
