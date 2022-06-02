@@ -10,7 +10,7 @@
       <h1 class="text-center text-primary">Update Task</h1>
    </div>
 
-   <form class="form-inline" action="/update/{{task.id}}" method="POST">
+   <form class="form-inline" action="/update/{{task.id}}/{{login}}" method="POST">
       <div class="form-group">
          <label for="description">Task</label>
          <input type="text" class="form-control" name="description" id="description" value="{{task.description}}" placeholder="Descrição">
